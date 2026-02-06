@@ -12,13 +12,13 @@ public class Edificio {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name="nome")
+    @Column(name="nome",nullable = false)
     private String nome;
 
-    @Column(name="indirizzo")
+    @Column(name="indirizzo",nullable = false)
     private String indirizzo;
 
-    @Column(name="citta")
+    @Column(name="citta",nullable = false)
     private String citta;
 
     public Edificio(String nome, String indirizzo, String citta) {

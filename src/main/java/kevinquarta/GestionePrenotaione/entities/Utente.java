@@ -12,13 +12,13 @@ public class Utente {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name="nome")
+    @Column(name="nome",nullable = false)
     private String nome;
 
-    @Column(name="cognome")
+    @Column(name="cognome",nullable = false)
     private String cognome;
 
-    @Column(name="email")
+    @Column(name="email",nullable = false)
     private String email;
 
     public Utente(String nome, String cognome, String email) {

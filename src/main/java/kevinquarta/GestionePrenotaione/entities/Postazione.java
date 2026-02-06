@@ -13,29 +13,24 @@ public class Postazione {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private long id;
 
-    @Column(name="descrizione")
+    @Column(name="descrizione",nullable = false)
     private String descrizione;
 
-    @Column(name="numMax")
+    @Column(name="numMax",nullable = false)
     private int numMaxOccupanti;
 
-    @Column(name="tipoPostazione")
+    @Column(name="tipoPostazione",nullable = false)
     @Enumerated(EnumType.STRING)
-    private tipoPostazione tipoPostazione;
-
-    @Column(name="libero")
-    private boolean libero;
-
+    private TipoPostazione tipoPostazione;
 
     @ManyToOne
     @JoinColumn(name="id_edificio",nullable = false)
     private Edificio edificio;
 
-    public Postazione(String descrizione, int numMaxOccupanti, tipoPostazione tipoPostazione, boolean libero, Edificio edificio) {
+    public Postazione(String descrizione, int numMaxOccupanti, TipoPostazione tipoPostazione, Edificio edificio) {
         this.descrizione = descrizione;
         this.numMaxOccupanti = numMaxOccupanti;
         this.tipoPostazione = tipoPostazione;
-        this.libero = libero;
         this.edificio = edificio;
     }
 
@@ -59,21 +54,14 @@ public class Postazione {
         this.numMaxOccupanti = numMaxOccupanti;
     }
 
-    public tipoPostazione getTipoPostazione() {
+    public TipoPostazione getTipoPostazione() {
         return tipoPostazione;
     }
 
-    public void setTipoPostazione(tipoPostazione tipoPostazione) {
+    public void setTipoPostazione(TipoPostazione tipoPostazione) {
         this.tipoPostazione = tipoPostazione;
     }
 
-    public boolean isLibero() {
-        return libero;
-    }
-
-    public void setLibero(boolean libero) {
-        this.libero = libero;
-    }
 
     public Edificio getEdificio() {
         return edificio;
@@ -90,8 +78,7 @@ public class Postazione {
                 ", descrizione='" + descrizione + '\'' +
                 ", numMaxOccupanti=" + numMaxOccupanti +
                 ", tipoPostazione=" + tipoPostazione +
-                ", libero=" + libero +
-                ", edificio=" + edificio +
+                ", edificio=" + edificio.getNome() +
                 '}';
     }
 }

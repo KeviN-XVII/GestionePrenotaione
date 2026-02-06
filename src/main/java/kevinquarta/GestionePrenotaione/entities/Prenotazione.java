@@ -14,7 +14,7 @@ public class Prenotazione {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private long id;
 
-    @Column(name="dataPrenotazione")
+    @Column(name="dataPrenotazione",nullable = false)
     private LocalDate dataPrenotazione;
 
     @ManyToOne
