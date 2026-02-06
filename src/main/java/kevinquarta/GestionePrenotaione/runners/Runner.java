@@ -1,6 +1,7 @@
 package kevinquarta.GestionePrenotaione.runners;
 
 import kevinquarta.GestionePrenotaione.entities.*;
+import kevinquarta.GestionePrenotaione.exceptions.ValidationException;
 import kevinquarta.GestionePrenotaione.repositories.UtenteRepository;
 import kevinquarta.GestionePrenotaione.services.EdificioService;
 import kevinquarta.GestionePrenotaione.services.PostazioneService;
@@ -11,6 +12,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 @Slf4j
@@ -33,29 +36,58 @@ public class Runner implements CommandLineRunner {
 
 //        EDIFICI
         Edificio edificioMilano = new Edificio("Edificio Milano","Via Garibaldi","Milano");
-        edificioService.saveEdificio(edificioMilano);
+//        edificioService.saveEdificio(edificioMilano);
 
         Edificio edificioRoma = new Edificio("Edificio Roma","Via Francesco Totti","Roma");
-        edificioService.saveEdificio(edificioRoma);
+//        edificioService.saveEdificio(edificioRoma);
 
 //        POSTAZIONI
         Postazione postazione1 = new Postazione("Ufficio Privato",10, TipoPostazione.PRIVATO,edificioMilano);
-        postazioneService.savePostazione(postazione1);
+//        postazioneService.savePostazione(postazione1);
 
         Postazione postazione2 = new Postazione("Postazone OpenSpace",20, TipoPostazione.OPENSPACE,edificioRoma);
-        postazioneService.savePostazione(postazione2);
+//        postazioneService.savePostazione(postazione2);
 
 //        UTENTI
         Utente Francesco = new Utente("Francesco","Totti","forzaroma@gmail.com");
-        utenteService.saveUtente(Francesco);
+//        utenteService.saveUtente(Francesco);
 
         Utente Riccardo = new Utente("Ricky","Kaka","kaka@gmail.com");
-        utenteService.saveUtente(Riccardo);
+//        utenteService.saveUtente(Riccardo);
 
 //        PRENOTAZIONI
         Prenotazione prenotazione1 = new Prenotazione(LocalDate.now(),Francesco,postazione1);
-        prenotazioneService.savePrenotazione(prenotazione1);
+//        prenotazioneService.savePrenotazione(prenotazione1);
 
+
+
+//        FIND BY DB
+
+          Edificio edificioMilanoDB = edificioService.findById(1);
+          Edificio edificioRomaDB = edificioService.findById(2);
+
+          Postazione postazione1DB= postazioneService.findById(1);
+          Postazione postazione2DB= postazioneService.findById(2);
+
+          Utente francescoDB = utenteService.findByEmail("forzaroma@gmail.com");
+          Utente riccardoDB = utenteService.findByEmail("kaka@gmail.com");
+
+//            ERRORE PRENOTAZIONE STESSO GIORNO E UTENTE
+          try {
+              Prenotazione prenotazione2 = new Prenotazione(LocalDate.now(),francescoDB,postazione2DB);
+              prenotazioneService.savePrenotazione(prenotazione2);
+
+          } catch (ValidationException e) {
+              log.error(e.getMessage());
+          }
+//            ERRORE PRENOTAZIONE STESSO GIORNO E POSTAZIONE
+        try {
+            Prenotazione prenotazione3 = new Prenotazione(LocalDate.now(),francescoDB,postazione2DB);
+            prenotazioneService.savePrenotazione(prenotazione2);
+
+        } catch (ValidationException e) {
+            log.error(e.getMessage());
+        }
 
 
 

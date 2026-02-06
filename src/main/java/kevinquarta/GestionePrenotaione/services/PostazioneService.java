@@ -36,5 +36,8 @@ public class PostazioneService {
         return postazioneRepository.findByTipoPostazioneAndEdificioCitta(tipoPostazione, citta);
     }
 
+    public Postazione  findById(long id){
+        return postazioneRepository.findById(id);
+    }
 
 }

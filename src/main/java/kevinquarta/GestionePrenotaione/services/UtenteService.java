@@ -25,11 +25,11 @@ public class UtenteService {
         log.info("Utente salvato con successo!");
     }
 
-    public List<Utente> findByNomeAndCognome(String nome, String cognome) {
+    public Utente findByNomeAndCognome(String nome, String cognome) {
         return this.utenteRepository.findByNomeAndCognome(nome,cognome);
     }
 
-    public List<Utente> findByEmail(String email) {
+    public Utente findByEmail(String email) {
         return this.utenteRepository.findByEmail(email);
     }
 

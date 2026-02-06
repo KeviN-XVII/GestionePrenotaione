@@ -7,9 +7,9 @@ import java.util.List;
 
 public interface UtenteRepository extends JpaRepository<Utente, Long> {
 
-    List<Utente> findByNomeAndCognome(String nome, String cognome);
+    Utente findByNomeAndCognome(String nome, String cognome);
 
-    List<Utente> findByEmail(String emailUtente);
+    Utente findByEmail(String emailUtente);
 
     boolean existsByEmail(String email);
 
