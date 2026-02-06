@@ -26,6 +26,7 @@ public class PrenotazioneService {
         throw new ValidationException("Postazione già prenotata per quella data e postazione");
         if(prenotazioneRepository.existsByUtenteIdAndDataPrenotazione(newPrenotazione.getUtente().getId(),newPrenotazione.getDataPrenotazione()))
             throw new ValidationException("Postazione già prenotata dall'utente per quella data ");
+
         this.prenotazioneRepository.save(newPrenotazione);
     }
 }

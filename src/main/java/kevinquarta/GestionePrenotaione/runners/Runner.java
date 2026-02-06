@@ -2,7 +2,6 @@ package kevinquarta.GestionePrenotaione.runners;
 
 import kevinquarta.GestionePrenotaione.entities.*;
 import kevinquarta.GestionePrenotaione.exceptions.ValidationException;
-import kevinquarta.GestionePrenotaione.repositories.UtenteRepository;
 import kevinquarta.GestionePrenotaione.services.EdificioService;
 import kevinquarta.GestionePrenotaione.services.PostazioneService;
 import kevinquarta.GestionePrenotaione.services.PrenotazioneService;
@@ -12,8 +11,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 @Component
 @Slf4j
@@ -82,12 +79,17 @@ public class Runner implements CommandLineRunner {
           }
 //            ERRORE PRENOTAZIONE STESSO GIORNO E POSTAZIONE
         try {
-            Prenotazione prenotazione3 = new Prenotazione(LocalDate.now(),francescoDB,postazione2DB);
-            prenotazioneService.savePrenotazione(prenotazione2);
+            Prenotazione prenotazione3 = new Prenotazione(LocalDate.now(),riccardoDB,postazione1DB);
+            prenotazioneService.savePrenotazione(prenotazione3);
 
         } catch (ValidationException e) {
             log.error(e.getMessage());
         }
+//      RICERCA POSTAZIONE INDICANDO TIPO E CITTA
+       log.info(postazioneService.findByTipoPostazioneAndEdificioCitta(TipoPostazione.PRIVATO,"Milano").toString());
+
+
+
 
 
 
